@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <fstream>
 #include <filesystem>
+#include <stdio.h>
 #include <string>
 #include <vector>
 #include <Windows.h>
@@ -27,10 +28,11 @@ json json_profiles_data;
 
 
 string str_rclone_path(".\\bin\\rclone\\rclone.exe"); // relative path to rclone
-string str_zip_path(".\\bin\\7zr.exe");
+string str_zip_path(".\\bin\\7zip\\7za.exe");
 
 string str_mega_user;
 string str_mega_pass;
+
 
 
 ///////// Functions Init /////////
@@ -43,6 +45,26 @@ void SetMegaAuth();
 
 
 ///////// Functions /////////
+
+
+std::string exec_cmd(const char* cmd) {
+    char buffer[128];
+    std::string result = "";
+    FILE* pipe = _popen(cmd, "r");
+    if (!pipe) throw std::runtime_error("popen() failed!");
+    try {
+        while (fgets(buffer, sizeof buffer, pipe) != NULL) {
+            result += buffer;
+        }
+    }
+    catch (...) {
+        _pclose(pipe);
+        throw;
+    }
+    _pclose(pipe);
+    return result;
+}// Thanks to Stackoverflow
+
 
 void DeleteZipFolder(string filename) {
     remove((filename + ".zip").c_str()); 
