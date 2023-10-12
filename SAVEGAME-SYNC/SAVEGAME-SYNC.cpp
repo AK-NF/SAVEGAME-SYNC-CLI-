@@ -10,7 +10,7 @@ using namespace std;
 // (100%) -> Improve Menu UI ->
 // (100%) -> Create Auth.json and Profiles.json when not there
 // (0%) -> Logs.log
-// (0%) -> IF Auth empty set auth -> if profiles empty set profile
+// (0%) -> Better editing of existing profiles (when no input is given the same value is used as already is)
 //
 // CLI v0.4 ROADMAP:
 // (0%) - More Cloud Provider (multiple auth profiles)
